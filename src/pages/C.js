@@ -1,7 +1,7 @@
 import React from "react";
 
 function RencanaPembelajaran() {
-  // Data contoh untuk rencana pembelajaran
+  // Sample data for the learning plan
   const rencana = [
     {
       minggu: 1,
@@ -30,6 +30,32 @@ function RencanaPembelajaran() {
     },
   ];
 
+  // Inline styles for the table and other elements
+  const tableStyles = {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginTop: "20px",
+  };
+
+  const thTdStyles = {
+    border: "1px solid #ccc",
+    padding: "10px",
+    textAlign: "left",
+  };
+
+  const thStyles = {
+    ...thTdStyles,
+    backgroundColor: "#f4f4f4",
+  };
+
+  const evenRowStyles = {
+    backgroundColor: "#f9f9f9",
+  };
+
+  const hoverRowStyles = {
+    backgroundColor: "#f1f1f1",
+  };
+
   return (
     <div className="container">
       <header className="header">
@@ -42,30 +68,31 @@ function RencanaPembelajaran() {
 
       <main className="main-content">
         <h2>Rencana Pembelajaran</h2>
-        <table className="learning-plan-table">
+        <table style={tableStyles}>
           <thead>
             <tr>
-              <th>Minggu</th>
-              <th>Topik</th>
-              <th>Deskripsi</th>
+              <th style={thStyles}>Minggu</th>
+              <th style={thStyles}>Topik</th>
+              <th style={thStyles}>Deskripsi</th>
             </tr>
           </thead>
           <tbody>
             {rencana.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <span>{item.minggu}</span>
-                </td>
-                <td>
-                  <span style={{ marginTop: "10px", marginBottom: "10px" }}>
-                    {item.topik}
-                  </span>
-                </td>
-                <td>
-                  <span style={{ marginTop: "10px", marginBottom: "10px" }}>
-                    {item.deskripsi}
-                  </span>
-                </td>
+              <tr
+                key={index}
+                style={index % 2 === 0 ? evenRowStyles : {}}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    hoverRowStyles.backgroundColor)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    index % 2 === 0 ? evenRowStyles.backgroundColor : "white")
+                }
+              >
+                <td style={thTdStyles}>{item.minggu}</td>
+                <td style={thTdStyles}>{item.topik}</td>
+                <td style={thTdStyles}>{item.deskripsi}</td>
               </tr>
             ))}
           </tbody>
